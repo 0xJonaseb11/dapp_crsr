@@ -10,8 +10,8 @@ contract Migrations {
         _;
     }
 
-    constructor () {
-        msg.sender = owner;
+    constructor() {
+        msg.sender == owner;
     }
 
     function setCompleted(uint completed) public restricted {

@@ -1,12 +1,14 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.8;
 
-contract Ballot {
-
-    /**
+ /**
     * @title Ballot
     * @dev Implements voting full logic as welll as delegation
      */
+
+contract Ballot {
+
+   
 
     address public chairperson;
     mapping(address => Voter) public voters;
