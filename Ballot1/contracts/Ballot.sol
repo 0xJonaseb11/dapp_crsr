@@ -11,6 +11,7 @@ contract Ballot {
    
 
     address public chairperson;
+    adddress public owner;
     mapping(address => Voter) public voters;
 
     Proposal[] public proposals;
@@ -40,12 +41,23 @@ contract Ballot {
         }
     }
 
+    modifier onlyOwner() {
+        owner == msg.sender;
+        _;
+    }
+
     function giveRightToVote(address voter) external {
         require(msg.sender == chairperson, "Only the chairperson can give the right to vote");
         require(!voters[voter].voted, "The voter has already voted");
         require(voters[voter].weight == 0, "The voter's weight should be 0");
         
         voters[voter].weight = 1;
+    }
+
+    function register(address toVoter) public onlyOwner {
+        if (voters[toVoter].weight != 0) revert();
+        voters[toVoter].weight = 1;
+        voters[toVoter].voted = false;
     }
 
     // Delegate your vote to the voter

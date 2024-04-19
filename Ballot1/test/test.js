@@ -1,4 +1,4 @@
-let Ballot = artifacts.require("Ballot.sol");
+let Ballot = artifacts.require("./Ballot.sol");
 
 let ballotInstance;
 
