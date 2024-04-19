@@ -11,6 +11,8 @@ truffle compile
 truffle develop
 # Test smart contracts
 truffle test
+# Deploy smart contract
+truffle deploy
 
 ```
 
