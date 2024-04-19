@@ -40,6 +40,58 @@ contract("Ballot contract", (accounts) => {
             return ballotInstance.vote(1, {from: accounts[3]});
         }).then((result) => {
             assert.equal('0x01', result.receipt.status, "Voting is done");
-        })
-    })
-})
+        });
+    });
+
+    // Test case 4
+    it("Validate winner", () => {
+        return ballotInstance.winningProposal.call().then((result) => {
+            assert.equal(1, result.toNumber(), "Winner is validated with the expected winner");
+        });
+    });
+
+    /**
+     * Negative tests
+     * 
+     * Test case 5
+     */
+    it("Should NOT accept unauthorised registration", () => {
+        return ballotInstance.register(accounts[6], {from: accounts[1]})
+          .then((result) => {
+            /**
+             * if the user had already handled the above failure in solidity, 
+             * then this block is executed
+             * Truffle would directly throw the revert error which will be caught
+             */
+            
+            throw("Condition not implemented in smart contract")
+          }).catch((e) => {
+            /**
+             * If the error is custom thrown, then the condition was not checked
+             * and hence fail the test case - else pass the test case
+             */
+
+            if(e ==="Condition not implemented in smart contract") {
+                assert(false);
+            } else {
+                assert(true);
+            }
+          });
+    });
+
+    /**
+     * Test case 6
+     */
+    it("Should NOT accept unregistered user vote", () => {
+        return ballotInstance.vote(1, {from: accounts[7]})
+        .then((result) => {
+            throw("Condition not implemented in smart contract");
+        }).catch((e) => {
+            if(e === "Condition not implemented in smart contract") {
+                assert(false);
+            } else {
+                assert(true);
+            }
+        });
+    });
+});
