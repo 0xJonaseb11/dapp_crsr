@@ -8,10 +8,8 @@ pragma solidity ^0.8.8;
 
 contract Ballot {
 
-   
-
     address public chairperson;
-    adddress public owner;
+    address public owner;
     mapping(address => Voter) public voters;
 
     Proposal[] public proposals;
